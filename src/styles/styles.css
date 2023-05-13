@@ -1,0 +1,320 @@
+body{
+    background: #2b2d2f;
+}
+
+#sidebar{
+    background-color: rgb(34 34 34);
+    min-height: 500px;
+    color: #fff;
+    padding-left: 2rem;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+    padding-right: 0;
+    position: relative;
+    border-right: 1px solid;
+    flex-direction: column;
+    row-gap: 2rem;
+    border-color: rgb(255 255 255/0.25);
+}
+
+#sidebar-account{
+    bottom: 1rem;
+    left: 0;
+    position: absolute;
+    display: flex;
+    flex-direction: row;
+    border-top: 1px solid rgb(255 255 255/0.25);
+    width: 100%;
+    padding-left: 2rem;
+    padding-top: 2rem;
+    padding-bottom: 1rem;
+    font-size: .875rem;
+    font-weight: 800;
+    font-family:Montserrat,Helvetica,sans-serif;
+}
+
+.loggedOut {
+    display: flex;
+    align-items: center;
+    column-gap: .5rem;
+}
+
+.signout {
+    font-weight: 100;
+    color: rgb(217 143 64/1);
+}
+
+.sidebar-header{
+    font-family:Montserrat,Helvetica,sans-serif;
+    font-weight: 600;
+    letter-spacing: .1em;
+    line-height: 1.5;
+    text-transform: uppercase;
+    font-size: .625rem;
+    margin-bottom: .5rem;
+    color: rgb(170, 170, 170/1);
+}
+
+.primary-button {
+    background-color: rgb(217 143 64/1);
+    border-color: transparent;
+    font-weight: 600;
+}
+
+.primary-button:hover {
+    background-color: rgb(224 163 98/1);
+    border-color: #fff;
+}
+
+.secondary-button {
+    color: #fff;
+    border-color: #fff;
+    font-weight: 600;
+}
+
+.sidebar-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    padding-bottom: 2rem;
+}
+
+.sidebar-item {
+    padding: .5rem;
+    column-gap: .5rem;
+    border-color: transparent;
+    border-width: 0 0 0 2px;
+    border-style: solid;
+    align-items: center;
+    display: flex;
+    line-height: 1;
+    color: rgb(217 143 64/1);
+    font-family:Montserrat,Helvetica,sans-serif;
+    line-height: 1;
+    font-weight: 600;
+    font-size: .875rem;
+}
+
+.sidebar-item.active {
+    border-color: rgb(217 143 64/1);
+    background-color: rgb(43 45 47);
+}
+
+.sidebar-item svg {
+    color: rgb(255 255 255/1)
+}
+.sidebar-item svg:hover {
+    color: rgb(255 255 255/1)
+}
+
+.sidebar-item:hover {
+    border-color: rgb(217 143 64/1);
+    background-color: rgb(43 45 47);
+    color: #fff
+}
+
+#content{
+    padding:0;
+    margin:0;
+    min-height:100vh;
+    display:flex;
+    flex-direction:column
+}
+#header{
+    height:56px;
+    background:#101010;
+    display:flex;
+    justify-content:center;
+    /* justify-content: space-evenly;; */
+    align-items:center;
+    flex-grow:0
+}
+
+.nav-menu-button {
+    color: #fff;
+    position: absolute;
+    left: 2rem;
+    top: 1rem;
+}
+
+main{
+    font-family:Montserrat,Helvetica,sans-serif;
+    text-align:left;
+    color:#fff;
+    padding-top:1.25rem;
+    padding-left:1rem;
+    padding-right:1rem;
+    margin-left:auto;
+    margin-right:auto;
+    flex-grow:1
+}
+footer{
+    flex-grow:0;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    padding-bottom:2.5rem;
+    padding-top:4.5rem;
+    font-family:Roboto,Helvetica,sans-serif;
+    font-size:.75rem;
+    color:#aaa;
+    border-top: 1px solid rgb(255 255 255/0.25);
+}
+
+.gametile-card {
+    border: 1px solid rgb(255 255 255/0.25); 
+    padding: 8px 4px;
+    border-radius: 5px;
+    background-color: rgb(34 34 34);
+}
+
+.gametile-card:hover {
+    background-color: #101010;
+    border: 1px solid rgb(255 255 255); 
+    cursor: pointer;
+}
+
+.gametile-card h4 {
+    font-family:Montserrat;
+    text-overflow: ellipsis;
+    line-height: 1em;
+    height: 2em; 
+    overflow: hidden;
+    line-clamp: 2;
+}
+
+.gametile-card img {
+    border-radius: 5px;
+}
+
+.maintenance-page__content{
+    max-width:900px
+}
+.maintenance-page__title{
+    font-weight:700;
+    text-transform:uppercase;
+    font-size:2rem;
+    letter-spacing:.8px
+}
+.maintenance-page__main-image{
+    max-width:385px;
+    width:100%
+}
+.maintenance-page__subtext{
+    font-family:Roboto;
+    font-size:1.125rem;
+    line-height:1.5;
+    font-weight:400;
+    margin-top:2rem;
+    margin-bottom:2rem
+}
+.maintenance-page__subtext a {
+    color: #d98f40;
+}
+.maintenance-page__supertext{
+    color:#aaa;
+    font-size:.875rem;
+    line-height:1.5;
+    font-family:Roboto;
+    font-weight:400
+}
+.maintenance-page__text{
+    font-size:.875rem;
+    line-height:1.5;
+    font-family:Roboto;
+    font-weight:400;
+    margin-top:2rem;
+    margin-bottom:2rem
+}
+.maintenance-page__text a {
+    color: #d98f40;
+}
+a{
+    text-decoration:none
+}
+.maintenance-page__social-links{
+    margin-bottom:1.5rem
+}
+.maintenance-page__social-links>*+*{
+    margin-left:1rem
+}
+.maintenance-page__social-links img{
+    opacity:.6
+}
+.maintenance-page__social-links a:hover img{
+    opacity:1
+}
+.maintenance-page__centered-content{
+    display:flex;
+    justify-content:center
+}
+.maintenance-page__discord-button{
+    background:0 0;
+    border:1px solid #d98f40;
+    border-radius:4px;
+    color:#fff;
+    font-family:Montserrat;
+    font-weight:600;
+    text-transform:uppercase;
+    letter-spacing:.7px;
+    font-size:.875rem;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:10px;
+    padding:0 16px;
+    height:36px
+}
+.maintenance-page__discord-button:hover{
+    background:#3a413f
+}
+.maintenance-page__discord-button:focus{
+    background:#3a413f;
+    outline:2px solid #388ffa;
+    outline-offset:2px
+}
+.maintenance-page__discord-button>img{
+    width:1.25rem
+}
+@media (min-width:768px){
+    main{
+        padding-top:2.5rem;
+        padding-left:3rem;
+        padding-right:3rem
+    }
+    .maintenance-page__title{
+        font-size:2.5rem;
+        line-height:3rem;
+        font-weight:500;
+        letter-spacing:unset
+    }
+    .maintenance-page__main-image{
+        max-width:510px
+    }
+    .maintenance-page__subtext{
+        font-family:Montserrat;
+        font-size:1.125rem;
+        line-height:1.375;
+        font-weight:600
+    }
+    .maintenance-page__supertext{
+        font-size:1.125rem
+    }
+    .maintenance-page__text{
+        font-size:1.125rem
+    }
+}
+@media (min-width:1000px){
+    .maintenance-page__content{
+        max-width:1100px
+    }
+    .maintenance-page__title{
+        font-size:3rem;
+        line-height:3.5rem;
+        font-weight:600;
+        letter-spacing:-1.2px
+    }
+    .maintenance-page__main-image{
+        max-width:858px
+    }
+}
