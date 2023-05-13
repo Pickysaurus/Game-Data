@@ -4,8 +4,8 @@ export default function Document() {
   return (
     <Html lang="en">
       <Head>
-      <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400"/>
-      <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:400,600"/>
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400&display=optional"/>
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:400,600&display=optional"/>
       </Head>
       <body>
         <Main />
