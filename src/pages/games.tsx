@@ -45,7 +45,7 @@ export default function Games(props: IGameListProps) {
                 placeholder='Search for a game by title or domain name.'
             /><hr/>
             </div>
-            <div>{displayableGames.slice(pageOffset, pageOffset + 20).map((g, i) => (<Link href={`/games/${g.domain_name}`} id={i.toString()}><Image src={g.image!} width={70} height={90} alt={g.name} /></Link>))}</div>
+            {/* <div>{displayableGames.slice(pageOffset, pageOffset + 20).map((g, i) => (<Link href={`/games/${g.domain_name}`} id={i.toString()}><Image src={g.image!} width={70} height={90} alt={g.name} /></Link>))}</div> */}
             <Button onClick={() => setPageOffset(pageOffset - 20)} disabled={pageOffset === 0}>{'<'}</Button><Button onClick={() => setPageOffset(pageOffset + 20)}>{'>'}</Button>
             <Container>
                 <Row>
