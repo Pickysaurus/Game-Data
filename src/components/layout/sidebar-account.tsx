@@ -31,7 +31,7 @@ const SidebarAccount = (props: ISidebarAccountProps) => {
     const loggedOut = (
         <div className='loggedOut'>
             <Button style={{display: props.expanded ? '' : 'none'}} variant='outline-secondary' className='secondary-button' onClick={logIn}>Log In</Button>
-            <Button variant='primary' className='primary-button'>Register</Button>
+            <Button variant='primary' className='primary-button' disabled={!props.expanded}>Register</Button>
         </div>
     )
 

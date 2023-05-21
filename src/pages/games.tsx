@@ -9,6 +9,8 @@ import Image from 'next/image';
 import Link from 'next/link';
 import GameTile from '@/components/gameTile';
 
+const staticCache = 15 * 60;
+
 interface IGameListProps {
     games: IStaticGameEntry[];
     gamesError?: Error;
@@ -17,10 +19,10 @@ interface IGameListProps {
 export async function getServerSideProps() {
     try {
         const games = await getAllGames();
-        return { props: { games } };
+        return { props: { games }, revalidate: staticCache };
     }
     catch(err) {
-        return { props:{ games: [], gamesEror: err } };
+        return { props:{ games: [], gamesEror: err }, revalidate: 10 };
     }
 }
 
@@ -40,13 +42,10 @@ export default function Games(props: IGameListProps) {
             <div><Form.Control 
                 type='input'
                 id='searchInput'
-                // size='lg'
                 onChange={updateFilter}
                 placeholder='Search for a game by title or domain name.'
             /><hr/>
             </div>
-            {/* <div>{displayableGames.slice(pageOffset, pageOffset + 20).map((g, i) => (<Link href={`/games/${g.domain_name}`} id={i.toString()}><Image src={g.image!} width={70} height={90} alt={g.name} /></Link>))}</div> */}
-            <Button onClick={() => setPageOffset(pageOffset - 20)} disabled={pageOffset === 0}>{'<'}</Button><Button onClick={() => setPageOffset(pageOffset + 20)}>{'>'}</Button>
             <Container>
                 <Row>
                 <Col><GameTile game={props.games[0]} /></Col>
