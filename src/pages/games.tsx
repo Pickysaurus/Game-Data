@@ -5,8 +5,6 @@ import Container from 'react-bootstrap/Container';
 import Col from 'react-bootstrap/Col';
 import { getAllGames, IStaticGameEntry } from '@/util/NexusMods/nexusapi';
 import { ChangeEvent, useState } from 'react';
-import Image from 'next/image';
-import Link from 'next/link';
 import GameTile from '@/components/gameTile';
 
 const staticCache = 15 * 60;
@@ -19,10 +17,10 @@ interface IGameListProps {
 export async function getServerSideProps() {
     try {
         const games = await getAllGames();
-        return { props: { games }, revalidate: staticCache };
+        return { props: { games } };
     }
     catch(err) {
-        return { props:{ games: [], gamesEror: err }, revalidate: 10 };
+        return { props:{ games: [], gamesEror: err } };
     }
 }
 

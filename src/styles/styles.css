@@ -188,6 +188,102 @@ footer{
     border-radius: 5px;
 }
 
+.game-header {
+    background-color: rgb(34 34 34/0.7);
+    padding: 16px;
+    height: 150px;
+    display: flex;
+    margin-bottom: 16px;
+
+    .game-header-content {
+        flex-direction: row;
+        width: 100%;
+        display: flex;
+
+        .title {
+            background-color: rgb(34 34 34/0.7);
+            border-radius: 4px;
+            padding: 4px 8px;
+            width: 100%;
+        }
+    }
+}
+
+.game-header-content h1 {
+    font-family: Montserrat,Helvetica,sans-serif;
+    font-weight: 700;
+    margin: 0;
+}
+
+.game-header-content img {
+    border-radius: 4px;
+    margin: 0 16px;
+}
+
+.nav-tabs {
+    border-bottom-color: rgb(60 63 68);
+}
+
+.nav-link {
+    background-color: transparent !important;
+    color: rgb(255 255 255/0.7);
+    font-family: Montserrat,Helvetica,sans-serif;
+    font-weight: 700;
+}
+
+.nav-link:hover:not('active') {
+    border: none;
+    color: #fff;
+}
+
+.nav-link.active {
+    color: #fff !important;
+    border-width: 0 0 4px 0 !important;
+    border-color: rgb(217 143 64/1) !important;
+}
+
+.accordion-item {
+    background-color: rgb(34 34 34);
+    color: #fff;
+}
+
+.accordion-header {
+    .accordion-button {
+        background-color: rgb(34 34 34);
+        color: #fff;
+        padding: 8px 16px;
+    }
+}
+
+/* Collection page CSS */
+#api-key-form {
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+    height: 5rem;
+    justify-content: space-between;
+    border: 1px dashed white;
+    border-radius: 4px;
+    padding: 8px;
+}
+
+#api-key-group {
+    #apikey {
+        min-width: 500px;
+    }
+    .form-text {
+        color: white;
+    }
+}
+
+/* Modal */
+.modal-content {
+    background-color: #2b2d2f;
+    color: white;
+}
+
+/* CSS Stolen from Nexus Mods page */
+
 .maintenance-page__content{
     max-width:900px
 }

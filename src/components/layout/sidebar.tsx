@@ -1,6 +1,6 @@
 import React from 'react'
 import { Icon } from '@mdi/react'
-import { mdiHome, mdiGamepad, mdiSend, mdiStore, mdiStarCog, mdiEngine } from '@mdi/js'
+import { mdiHome, mdiGamepad, mdiSend, mdiStore, mdiStarCog, mdiEngine, mdiRelationOneOrManyToOne, mdiPlusBoxMultiple, mdiRhombusSplit } from '@mdi/js'
 import SidebarAccount from './sidebar-account'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
@@ -30,6 +30,10 @@ const Sidebar = (props: ISidebarProps) => {
         <ul className='sidebar-list'>
             {listItem('/', 'Home', mdiHome, false)}
         </ul>
+        <div className='sidebar-header' style={{display: props.expanded ? '' : 'none'}}>Collections</div>
+        <ul className='sidebar-list'>
+            {listItem('/collection-builder', 'Builder', mdiRhombusSplit)}
+        </ul>
         <div className='sidebar-header' style={{display: props.expanded ? '' : 'none'}}>Games</div>
         <ul className='sidebar-list'>
             {listItem('/games', 'Browse Games', mdiGamepad)}
@@ -37,6 +41,8 @@ const Sidebar = (props: ISidebarProps) => {
         </ul>
         <div className='sidebar-header' style={{display: props.expanded ? '' : 'none'}}>Admin</div>
         <ul className='sidebar-list'>
+            {listItem('/admin/dlc', 'DLCs', mdiPlusBoxMultiple)}
+            {listItem('/admin/names', 'Alternate Names', mdiRelationOneOrManyToOne)}
             {listItem('/admin/stores', 'Game Stores', mdiStore)}
             {listItem('/admin/publishers', 'Publishers', mdiStarCog)}
             {listItem('/admin/engines', 'Engines', mdiEngine)}
