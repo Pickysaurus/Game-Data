@@ -76,7 +76,7 @@ export default function ModFilesPicker(props: IProps) {
                     </tr>
                 </thead>
                 <tbody>
-                    {files.map(f => <tr><td>{f.name}</td><td>{f.mod_version}</td><td>{addButton(f)}</td></tr>)}
+                    {files.map(f => <tr key={f.uid}><td>{f.name}</td><td>{f.mod_version}</td><td>{addButton(f)}</td></tr>)}
                 </tbody>
             </Table>
             </div>
