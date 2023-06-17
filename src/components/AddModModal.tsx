@@ -107,6 +107,7 @@ export default function AddModModal(props: IProps) {
         setSearchResults([]);
         setModFileOptions(undefined);
         setStage('mod');
+        setQuery('')
     };
 
     const showBody = () => {

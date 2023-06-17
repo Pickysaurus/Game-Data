@@ -103,7 +103,7 @@ export default function CollectionBuilder() {
                     </thead>
                     <tbody>
                         {mods.map(m => (
-                        <tr>
+                        <tr key={`${m.mod.game.domainName}-${m.mod.modId}`}>
                             <td><Image src={m.mod.thumbnailUrl} alt={m.mod.name} width={80} height={50} /></td>
                             <td><div>{m.mod.name}</div><div>{m.mod.game.name}</div></td>
                             <td>{m.file.name}</td>

@@ -65,7 +65,7 @@ export default function ModFilesPicker(props: IProps) {
         const files = sorted[name];
         if (!files) return null;
         return (
-            <div>
+            <div key={name}>
             <h4>{name}</h4>
             <Table variant="dark" striped>
                 <thead>
