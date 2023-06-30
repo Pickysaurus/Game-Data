@@ -8,6 +8,7 @@ import { Icon } from '@mdi/react'
 import { mdiMagnify } from '@mdi/js';
 import { IModFile, IModSearchResult } from '@/util/NexusMods/nexusapi';
 import ModFilesPicker from './ModFilesPicker';
+import debounce from 'lodash.debounce';
 
 type ModalState = 'mod' | 'file';
 
@@ -19,11 +20,11 @@ interface IProps {
 }
 
 export default function AddModModal(props: IProps) {
-    const [stage, setStage] = useState('mod');
+    const [stage, setStage] = useState<ModalState>('mod');
     const { setVisible, show, apikey, addMod } = props;
     const [modPage, setModPage] = useState<IModSearchResult|undefined>(undefined);
     const [modFile, setModFile] = useState(undefined);
-    const [query, setQuery] = useState('');
+    const [query, setQuery] = useState<string>('');
     const [searchResults, setSearchResults] = useState<IModSearchResult[]>([]);
     const [modFileOptions, setModFileOptions] = useState<IModFile[]|undefined>(undefined);
 
@@ -62,11 +63,10 @@ export default function AddModModal(props: IProps) {
             console.error('Fetch for file search failed', err);
         }
 
-    }, [modPage])
+    }, [modPage]);
 
     useMemo(async () => {
-        // This should be debounced!
-        if (!query) return setSearchResults([]);
+        // if (!query || !apikey) setSearchResults([]);
         const endpoint = '/api/modSearch?';
 
         const options: RequestInit = {
@@ -92,8 +92,22 @@ export default function AddModModal(props: IProps) {
         catch(err) {
             console.error('Fetch for mod search failed', err);
         }
+    }, [query]);
 
-    }, [query, apikey]);
+    const setNewQuery = (event: any) =>  {
+        setQuery(event.target.value);
+    }
+    
+    const dbQueryUpdate = useMemo(
+        () => debounce(setNewQuery, 300),
+        []
+    );
+
+    useEffect(() => {
+        return () => { 
+            dbQueryUpdate?.cancel()
+        }
+    }, []);
 
     const addModToCollection = (file: IModFile, updatePolicy: 'exact' | 'latest' | 'prefer') => {
         addMod({updatePolicy, file, mod: modPage});
@@ -129,8 +143,8 @@ export default function AddModModal(props: IProps) {
                         type='input'
                         id='apikey'
                         placeholder={'Enter the mod page title'}
-                        value={query}
-                        onChange={(event) => setQuery(event.target.value)}
+                        // value={query}
+                        onChange={dbQueryUpdate}
                     />
                     </InputGroup>
                 </Form>
@@ -146,9 +160,9 @@ export default function AddModModal(props: IProps) {
 
     const modPreview = (mod: IModSearchResult, idx: number) => {
         return (
-            <div id={mod.name+idx} onClick={() => setModPage(mod)}>
+            <div key={mod.name+idx} onClick={() => setModPage(mod)}>
             <Image src={mod.thumbnailUrl} alt={mod.name} width={80} height={60}/>
-            <b>{mod.name}</b>
+            <b>{mod.name} - {mod.game.name}</b>
             </div>
         )
     }

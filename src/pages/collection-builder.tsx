@@ -43,7 +43,7 @@ export default function CollectionBuilder() {
                 return setFormDisabled(false);
             }
             const result = await response.json();
-            console.log(result);
+            // console.log(result);
 
             setSavedKey(result.key);
             setKeyInput('');
@@ -81,7 +81,7 @@ export default function CollectionBuilder() {
                         onChange={(e) => setKeyInput(e.target.value)}
                     />
                     <Form.Text>
-                        {savedKey ? <p>API key valid!</p> : keyError ? <p style={{color: 'red'}}>API key Error: {keyError}</p> : 'Enter your API key to use this feature.'}
+                        {savedKey ? <p>API key valid!</p> : keyError ? <p style={{color: 'red'}}>API key Error: {keyError}</p> : <p>Enter your <a href='https://www.nexusmods.com/users/myaccount?tab=api'>API key</a> to use this feature.</p>}
                     </Form.Text>
                 </Form.Group>
                 <Button variant='primary' disabled={keyInput === '' || formDisabled} onClick={checkApiKey}>
@@ -111,7 +111,7 @@ export default function CollectionBuilder() {
                             <td><Button variant='danger' onClick={() => removeMod(m)}><Icon path={mdiCloseBoxOutline} size={1}/></Button></td>
                         </tr>
                         ))}
-                        <tr><td colSpan={4} style={{textAlign: 'center'}}><Button variant='primary' disabled={!savedKey} onClick={() => setAddModalView(!addModalview)}><Icon path={mdiViewGridPlus} size={1} /> Add a mod</Button></td></tr>
+                        <tr><td colSpan={5} style={{textAlign: 'center'}}><Button variant='primary' disabled={!savedKey} onClick={() => setAddModalView(!addModalview)}><Icon path={mdiViewGridPlus} size={1} /> Add a mod</Button></td></tr>
                     </tbody>
                 </Table>
                 <AddModModal apikey={savedKey} show={addModalview} setVisible={setAddModalView} addMod={addMod} />
