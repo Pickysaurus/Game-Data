@@ -1,12 +1,14 @@
 import { useState, useMemo, useEffect } from 'react';
 import Button from 'react-bootstrap/Button';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
 import InputGroup from 'react-bootstrap/InputGroup';
 import Image from 'next/image';
 import { Icon } from '@mdi/react'
 import { mdiMagnify } from '@mdi/js';
-import { IModFile, IModSearchResult } from '@/util/NexusMods/nexusapi';
+import { IModFile, IModSearchResult, IStaticGameEntry, getAllGames } from '@/util/NexusMods/nexusapi';
 import ModFilesPicker from './ModFilesPicker';
 import debounce from 'lodash.debounce';
 
@@ -27,6 +29,8 @@ export default function AddModModal(props: IProps) {
     const [query, setQuery] = useState<string>('');
     const [searchResults, setSearchResults] = useState<IModSearchResult[]>([]);
     const [modFileOptions, setModFileOptions] = useState<IModFile[]|undefined>(undefined);
+    const [games, setGames] = useState<(IStaticGameEntry[] | undefined | Error)>(undefined);
+    const [gameFilter, setGameFilter] = useState<(IStaticGameEntry | undefined)>(undefined);
 
     useEffect(() => {
         if (!modPage) setStage('mod');
@@ -77,7 +81,7 @@ export default function AddModModal(props: IProps) {
 
         const params: URLSearchParams = new URLSearchParams({
             term: query,
-            gameId: `${0}`,
+            gameId: `${gameFilter?.id ?? 0}`,
         });
 
         try {
@@ -92,7 +96,23 @@ export default function AddModModal(props: IProps) {
         catch(err) {
             console.error('Fetch for mod search failed', err);
         }
-    }, [query]);
+    }, [query, gameFilter]);
+
+    // Populate the games list
+    useMemo(async () => {
+        if (Array.isArray(games) && !games.length) {
+            console.log('Fetching games list...');
+            try {
+                const gameList = await getAllGames();
+                console.log('Got games', gameList)
+                setGames(gameList);
+            }
+            catch(err) {
+                console.error(err)
+                setGames(new Error('Failed to fetch games.'));
+            }
+        }
+    }, [games])
 
     const setNewQuery = (event: any) =>  {
         setQuery(event.target.value);
@@ -109,8 +129,8 @@ export default function AddModModal(props: IProps) {
         }
     }, []);
 
-    const addModToCollection = (file: IModFile, updatePolicy: 'exact' | 'latest' | 'prefer') => {
-        addMod({updatePolicy, file, mod: modPage});
+    const addModToCollection = (file: IModFile, updatePolicy?: 'exact' | 'latest' | 'prefer') => {
+        addMod({updatePolicy: updatePolicy || 'prefer', file, mod: modPage});
         handleClose();
     }
 
@@ -143,10 +163,19 @@ export default function AddModModal(props: IProps) {
                         type='input'
                         id='apikey'
                         placeholder={'Enter the mod page title'}
-                        // value={query}
                         onChange={dbQueryUpdate}
                     />
                     </InputGroup>
+                    <Form.Select value={gameFilter?.id} onChange={(e) => setGameFilter((games as IStaticGameEntry[])?.find(g => g.id === parseInt(e.target.value)))} onClick={() => !games ? setGames([]) : null}>
+                        <option>All Games</option>
+                        {
+                            (games as Error && !Array.isArray(games))
+                            ? <option disabled={true}>Failed to fetch games list</option>
+                            : (!games || !(games as IStaticGameEntry[]).length) 
+                            ? <option disabled={true}>Loading Games...</option>
+                            : (games as IStaticGameEntry[]).map(g => (<option value={g.id}>{g.name}</option>))
+                        }
+                    </Form.Select>
                 </Form>
                 <div style={{height: '50vh', overflowY: 'scroll', marginTop: '8px'}}>
                     { searchResults.length 
@@ -161,8 +190,15 @@ export default function AddModModal(props: IProps) {
     const modPreview = (mod: IModSearchResult, idx: number) => {
         return (
             <div key={mod.name+idx} onClick={() => setModPage(mod)}>
-            <Image src={mod.thumbnailUrl} alt={mod.name} width={80} height={60}/>
-            <b>{mod.name} - {mod.game.name}</b>
+                <Row>
+                    <Col style={{maxWidth: 90}}>
+                    <Image src={mod.thumbnailUrl} alt={mod.name} width={80} height={60}/>
+                    </Col>
+                    <Col>
+                    <div><b>{mod.name}</b></div>
+                    <div className='game-name'>{mod.game.name}</div>
+                    </Col>
+                </Row>
             </div>
         )
     }

@@ -276,6 +276,21 @@ footer{
     }
 }
 
+.game-name {
+    color: #000;
+    background-color: rgb(170, 170, 170);
+    border-radius: 0.75rem;
+    padding: 0 4px;
+    font-family: Montserrat,Helvetica,sans-serif;
+    text-transform: uppercase;
+    font-size: 0.75em;
+    line-clamp: 1;
+    text-align: center;
+    vertical-align: middle;
+    font-weight: 500;
+    display: inline-block;
+}
+
 /* Modal */
 .modal-content {
     background-color: #2b2d2f;

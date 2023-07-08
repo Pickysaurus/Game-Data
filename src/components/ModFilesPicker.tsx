@@ -3,10 +3,11 @@ import Icon from "@mdi/react";
 import { mdiPlus } from '@mdi/js';
 import Table from 'react-bootstrap/Table';
 import Dropdown from 'react-bootstrap/Dropdown';
+import Button from "react-bootstrap/Button";
 
 interface IProps {
     options: IModFile[] | undefined;
-    addMod: (mod: IModFile, updatePolicy: 'exact' | 'latest' | 'prefer') => void;
+    addMod: (mod: IModFile, updatePolicy?: 'exact' | 'latest' | 'prefer') => void;
 }
 
 const fileCategories: Record<string, IFileCategory> = {
@@ -48,17 +49,22 @@ export default function ModFilesPicker(props: IProps) {
 
     const addButton = (file: IModFile) => {
         return (
-        <Dropdown data-bs-theme="dark">
-            <Dropdown.Toggle variant="dark">
+            <Button onClick={() => addMod(file, 'prefer')}>
                 <Icon path={mdiPlus} size={1} />
-            </Dropdown.Toggle>
-            <Dropdown.Menu variant="dark">
-                <Dropdown.Item onClick={() => addMod(file, 'prefer')} title="Use this version if available. Otherwise use the latest non-archived version.">Default</Dropdown.Item>
-                <Dropdown.Item onClick={() => addMod(file, 'latest')} title="Always use the newest version of this file.">Latest version</Dropdown.Item>
-                <Dropdown.Item onClick={() => addMod(file, 'exact')} title="Use this version even if it has been archived.">Exact version</Dropdown.Item>
-            </Dropdown.Menu>
-        </Dropdown>
+            </Button>
         )
+        // return (
+        // <Dropdown data-bs-theme="dark">
+        //     <Dropdown.Toggle variant="dark">
+        //         <Icon path={mdiPlus} size={1} />
+        //     </Dropdown.Toggle>
+        //     <Dropdown.Menu variant="dark">
+        //         <Dropdown.Item onClick={() => addMod(file, 'prefer')} title="Use this version if available. Otherwise use the latest non-archived version.">Default</Dropdown.Item>
+        //         <Dropdown.Item onClick={() => addMod(file, 'latest')} title="Always use the newest version of this file.">Latest version</Dropdown.Item>
+        //         <Dropdown.Item onClick={() => addMod(file, 'exact')} title="Use this version even if it has been archived.">Exact version</Dropdown.Item>
+        //     </Dropdown.Menu>
+        // </Dropdown>
+        // )
     }
 
     const sections = Object.values(fileCategories).map(name => {

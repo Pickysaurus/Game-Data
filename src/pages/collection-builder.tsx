@@ -81,7 +81,7 @@ export default function CollectionBuilder() {
                         onChange={(e) => setKeyInput(e.target.value)}
                     />
                     <Form.Text>
-                        {savedKey ? <p>API key valid!</p> : keyError ? <p style={{color: 'red'}}>API key Error: {keyError}</p> : <p>Enter your <a href='https://www.nexusmods.com/users/myaccount?tab=api'>API key</a> to use this feature.</p>}
+                        {savedKey ? <p>API key valid!</p> : keyError ? <p style={{color: 'red'}}>API key Error: {keyError}</p> : <p>Enter your <a href='https://www.nexusmods.com/users/myaccount?tab=api' target='_blank'>API key</a> to use this feature.</p>}
                     </Form.Text>
                 </Form.Group>
                 <Button variant='primary' disabled={keyInput === '' || formDisabled} onClick={checkApiKey}>
@@ -105,7 +105,7 @@ export default function CollectionBuilder() {
                         {mods.map(m => (
                         <tr key={`${m.mod.game.domainName}-${m.mod.modId}`}>
                             <td><Image src={m.mod.thumbnailUrl} alt={m.mod.name} width={80} height={50} /></td>
-                            <td><div>{m.mod.name}</div><div>{m.mod.game.name}</div></td>
+                            <td><div>{m.mod.name}</div><div className='game-name'>{m.mod.game.name}</div></td>
                             <td>{m.file.name}</td>
                             <td>{m.updatePolicy === 'latest' ? 'Latest' : m.file.mod_version}{m.updatePolicy === 'prefer' ? '+' : null}</td>
                             <td><Button variant='danger' onClick={() => removeMod(m)}><Icon path={mdiCloseBoxOutline} size={1}/></Button></td>
