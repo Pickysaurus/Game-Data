@@ -1,11 +1,8 @@
 import { FormEvent, useState } from 'react';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
-import Table from 'react-bootstrap/Table';
-import Image from 'next/image';
-import { Icon } from '@mdi/react'
-import { mdiCloseBoxOutline, mdiExport, mdiViewGridPlus } from '@mdi/js'
 import AddModModal from '@/components/AddModModal';
+import CollectionModsTable from '@/components/CollectionModsTable';
 
 interface IMod {
     mod: any;
@@ -58,13 +55,21 @@ export default function CollectionBuilder() {
     }
 
     const addMod = (newMod: IMod) => {
-        const newMods = [newMod, ...mods];
+        const newMods = [...mods, newMod];
         return setMods(newMods as any);
     }
 
-    const removeMod = (deleteMod: IMod) => {
-        console.log("Removing mod", deleteMod)
-        const newMods = [...mods].filter(m => m !== deleteMod);
+    const updateMod = (idx: number, newMod: IMod) => {
+        if (idx === -1) return console.error('Invalid index', idx, newMod);
+        const newMods = [...mods];
+        newMods[idx] = newMod;
+        return setMods(newMods);
+    }
+
+    const removeMod = (idx: number) => {
+        const newMods = [...mods];
+        const removed = newMods.splice(idx, 1);
+        console.log("Removing mod", removed, idx);
         return setMods(newMods);
     }
 
@@ -96,38 +101,14 @@ export default function CollectionBuilder() {
             </div>
             <div>
                 <h1>Collection Builder</h1>
-                <Table variant='dark' striped responsive>
-                    <thead>
-                        <tr>
-                            <th style={{width: '100px'}}> </th>
-                            <th>Mod Name</th>
-                            <th>File Name</th>
-                            <th>Version</th>
-                            <th>Manage</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {mods.map(m => (
-                        <tr key={`${m.mod.game.domainName}-${m.mod.modId}`}>
-                            <td><Image src={m.mod.thumbnailUrl} alt={m.mod.name} width={80} height={50} /></td>
-                            <td><div>{m.mod.name}</div><div className='game-name'>{m.mod.game.name}</div></td>
-                            <td>{m.file.name}</td>
-                            <td>{m.updatePolicy === 'latest' ? 'Latest' : m.file.mod_version}{m.updatePolicy === 'prefer' ? '+' : null}</td>
-                            <td><Button variant='danger' onClick={() => removeMod(m)}><Icon path={mdiCloseBoxOutline} size={1}/></Button></td>
-                        </tr>
-                        ))}
-                        <tr>
-                            <td colSpan={5} style={{textAlign: 'center'}}>
-                                <Button variant='primary' disabled={!savedKey} onClick={() => setAddModalView(!addModalview)}>
-                                    <Icon path={mdiViewGridPlus} size={1} /> Add a mod
-                                </Button>
-                                <Button variant='secondary' disabled={true} onClick={() => null}>
-                                    <Icon path={mdiExport} size={1} /> Create Collection
-                                </Button>
-                            </td>
-                        </tr>
-                    </tbody>
-                </Table>
+                <CollectionModsTable
+                    mods={mods}
+                    savedKey={savedKey}
+                    removeMod={removeMod}
+                    setAddModalView={setAddModalView}
+                    addModalview={addModalview}
+                    updateMod={updateMod}
+                />
                 <AddModModal apikey={savedKey} show={addModalview} setVisible={setAddModalView} addMod={addMod} />
             </div>
         </div>

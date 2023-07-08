@@ -25,7 +25,6 @@ export default function AddModModal(props: IProps) {
     const [stage, setStage] = useState<ModalState>('mod');
     const { setVisible, show, apikey, addMod } = props;
     const [modPage, setModPage] = useState<IModSearchResult|undefined>(undefined);
-    const [modFile, setModFile] = useState(undefined);
     const [query, setQuery] = useState<string>('');
     const [searchResults, setSearchResults] = useState<IModSearchResult[]>([]);
     const [modFileOptions, setModFileOptions] = useState<IModFile[]|undefined>(undefined);
@@ -137,7 +136,6 @@ export default function AddModModal(props: IProps) {
     const handleClose = () => {
         setVisible(false);
         setModPage(undefined);
-        setModFile(undefined);
         setSearchResults([]);
         setModFileOptions(undefined);
         setStage('mod');
@@ -168,6 +166,7 @@ export default function AddModModal(props: IProps) {
                         id='searchquery'
                         placeholder={'Enter the mod page title'}
                         onChange={dbQueryUpdate}
+                        autoFocus
                     />
                     </InputGroup>
                     <Form.Select value={gameFilter?.id} onChange={(e) => setGameFilter((games as IStaticGameEntry[])?.find(g => g.id === parseInt(e.target.value)))} onClick={() => !games ? setGames([]) : null}>
