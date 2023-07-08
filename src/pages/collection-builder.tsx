@@ -4,7 +4,7 @@ import Button from 'react-bootstrap/Button';
 import Table from 'react-bootstrap/Table';
 import Image from 'next/image';
 import { Icon } from '@mdi/react'
-import { mdiClose, mdiCloseBox, mdiCloseBoxOutline, mdiDelete, mdiViewGridPlus } from '@mdi/js'
+import { mdiClose, mdiCloseBox, mdiCloseBoxOutline, mdiDelete, mdiExport, mdiViewGridPlus } from '@mdi/js'
 import AddModModal from '@/components/AddModModal';
 
 interface IMod {
@@ -111,7 +111,16 @@ export default function CollectionBuilder() {
                             <td><Button variant='danger' onClick={() => removeMod(m)}><Icon path={mdiCloseBoxOutline} size={1}/></Button></td>
                         </tr>
                         ))}
-                        <tr><td colSpan={5} style={{textAlign: 'center'}}><Button variant='primary' disabled={!savedKey} onClick={() => setAddModalView(!addModalview)}><Icon path={mdiViewGridPlus} size={1} /> Add a mod</Button></td></tr>
+                        <tr>
+                            <td colSpan={5} style={{textAlign: 'center'}}>
+                                <Button variant='primary' disabled={!savedKey} onClick={() => setAddModalView(!addModalview)}>
+                                    <Icon path={mdiViewGridPlus} size={1} /> Add a mod
+                                </Button>
+                                <Button variant='secondary' disabled={true} onClick={() => null}>
+                                    <Icon path={mdiExport} size={1} /> Create Collection
+                                </Button>
+                            </td>
+                        </tr>
                     </tbody>
                 </Table>
                 <AddModModal apikey={savedKey} show={addModalview} setVisible={setAddModalView} addMod={addMod} />
