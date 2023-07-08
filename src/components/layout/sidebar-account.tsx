@@ -25,6 +25,7 @@ const SidebarAccount = (props: ISidebarAccountProps) => {
         roundedCircle 
         src={session?.user?.image ?? 'https://www.nexusmods.com/assets/images/default/avatar.png'} 
         style={{maxHeight: '2rem', paddingRight: '8px'}} 
+        alt={`Avatar for ${session?.user?.name ?? 'unknown user'}`}
         />
     )
 
