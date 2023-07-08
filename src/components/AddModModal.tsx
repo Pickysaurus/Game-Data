@@ -67,7 +67,7 @@ export default function AddModModal(props: IProps) {
             console.error('Fetch for file search failed', err);
         }
 
-    }, [modPage]);
+    }, [modPage, apikey]);
 
     useMemo(async () => {
         // if (!query || !apikey) setSearchResults([]);
@@ -96,7 +96,7 @@ export default function AddModModal(props: IProps) {
         catch(err) {
             console.error('Fetch for mod search failed', err);
         }
-    }, [query, gameFilter]);
+    }, [query, gameFilter, apikey]);
 
     // Populate the games list
     useMemo(async () => {
@@ -173,7 +173,7 @@ export default function AddModModal(props: IProps) {
                             ? <option disabled={true}>Failed to fetch games list</option>
                             : (!games || !(games as IStaticGameEntry[]).length) 
                             ? <option disabled={true}>Loading Games...</option>
-                            : (games as IStaticGameEntry[]).map(g => (<option value={g.id}>{g.name}</option>))
+                            : (games as IStaticGameEntry[]).map(g => (<option key={g.id} value={g.id}>{g.name}</option>))
                         }
                     </Form.Select>
                 </Form>
