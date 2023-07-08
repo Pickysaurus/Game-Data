@@ -1,4 +1,4 @@
-import { useState, useMemo, useEffect } from 'react';
+import { useState, useMemo, useEffect, FormEvent } from 'react';
 import Button from 'react-bootstrap/Button';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
@@ -152,16 +152,20 @@ export default function AddModModal(props: IProps) {
         }
     }
 
+    const ignoreEnterSubmit = (e: FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+    }
+
     const modStage = () => {
         return (
             <>
             <div>
-                <Form>
+                <Form onSubmit={ignoreEnterSubmit}>
                     <InputGroup>
                     <InputGroup.Text id="basic-addon1"><Icon path={mdiMagnify} size={1} /></InputGroup.Text>
                     <Form.Control 
                         type='input'
-                        id='apikey'
+                        id='searchquery'
                         placeholder={'Enter the mod page title'}
                         onChange={dbQueryUpdate}
                     />

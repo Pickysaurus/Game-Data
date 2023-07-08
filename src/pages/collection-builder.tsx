@@ -1,10 +1,10 @@
-import { useState } from 'react';
+import { FormEvent, useState } from 'react';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Table from 'react-bootstrap/Table';
 import Image from 'next/image';
 import { Icon } from '@mdi/react'
-import { mdiClose, mdiCloseBox, mdiCloseBoxOutline, mdiDelete, mdiExport, mdiViewGridPlus } from '@mdi/js'
+import { mdiCloseBoxOutline, mdiExport, mdiViewGridPlus } from '@mdi/js'
 import AddModModal from '@/components/AddModModal';
 
 interface IMod {
@@ -68,10 +68,15 @@ export default function CollectionBuilder() {
         return setMods(newMods);
     }
 
+    const ignoreEnterSubmit = (e: FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+    }
+
+
     return (
         <div>
             <div>
-            <Form id='api-key-form'>
+            <Form id='api-key-form' onSubmit={ignoreEnterSubmit}>
                 <Form.Group className='mb-3' id='api-key-group'>
                     <Form.Control 
                         type='input'
@@ -81,7 +86,7 @@ export default function CollectionBuilder() {
                         onChange={(e) => setKeyInput(e.target.value)}
                     />
                     <Form.Text>
-                        {savedKey ? <p>API key valid!</p> : keyError ? <p style={{color: 'red'}}>API key Error: {keyError}</p> : <p>Enter your <a href='https://www.nexusmods.com/users/myaccount?tab=api' target='_blank'>API key</a> to use this feature.</p>}
+                        {savedKey ? <p>API key valid!</p> : keyError ? <p style={{color: 'red'}}>API key Error: {keyError}</p> : <p>Enter your <a href='https://www.nexusmods.com/users/myaccount?tab=api#personal_key' target='_blank'>API key</a> to use this feature.</p>}
                     </Form.Text>
                 </Form.Group>
                 <Button variant='primary' disabled={keyInput === '' || formDisabled} onClick={checkApiKey}>
